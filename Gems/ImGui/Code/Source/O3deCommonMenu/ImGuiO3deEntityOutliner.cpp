@@ -6,7 +6,7 @@
  *
  */
 
-#include "ImGuiLYEntityOutliner.h"
+#include "ImGuiO3deEntityOutliner.h"
 
 #ifdef IMGUI_ENABLED
 
@@ -40,7 +40,7 @@ namespace ImGui
     static const ImVec4 s_ComponentParamColor_Value =           ImColor(0.32f, 1.0f, 1.0f);
 
 
-    ImGuiLYEntityOutliner::ImGuiLYEntityOutliner()
+    ImGuiO3deEntityOutliner::ImGuiO3deEntityOutliner()
         : m_enabled(false)
         , m_displayName(true, s_DisplayNameDefaultColor)
         , m_displayChildCount(false, s_DisplayChildCountDefaultColor)
@@ -60,23 +60,23 @@ namespace ImGui
     {
     }
 
-    ImGuiLYEntityOutliner::~ImGuiLYEntityOutliner()
+    ImGuiO3deEntityOutliner::~ImGuiO3deEntityOutliner()
     {
     }
 
-    void ImGuiLYEntityOutliner::Initialize()
+    void ImGuiO3deEntityOutliner::Initialize()
     {
         // Connect to Ebusses
         ImGuiEntityOutlinerRequestBus::Handler::BusConnect();
     }
 
-    void ImGuiLYEntityOutliner::Shutdown()
+    void ImGuiO3deEntityOutliner::Shutdown()
     {
         // Disconnect Ebusses
         ImGuiEntityOutlinerRequestBus::Handler::BusDisconnect();
     }
 
-    void ImGuiLYEntityOutliner::ImGuiUpdate_DrawViewOptions()
+    void ImGuiO3deEntityOutliner::ImGuiUpdate_DrawViewOptions()
     {
         // Create a child to help better size the menu
         ImGui::BeginChild("EntityOutliner_ViewOptionsMenuChild", ImVec2(580.0f, 260.0f));
@@ -187,7 +187,7 @@ namespace ImGui
 
         ImGui::Columns(1);
 
-        // The 3rd parameter of this Combo box HAS to match the order of ImGuiLYEntityOutliner::HierarchyUpdateType
+        // The 3rd parameter of this Combo box HAS to match the order of ImGuiO3deEntityOutliner::HierarchyUpdateType
         ImGui::Combo("Hierarchy Update Type", reinterpret_cast<int*>(&m_hierarchyUpdateType), "Constant\0Update Tick");
 
         // Refresh the hierarchy / display further options, based on update type
@@ -207,7 +207,7 @@ namespace ImGui
         ImGui::EndChild(); // "EntityOutliner_ViewOptionsMenuChild"
     }
 
-    void ImGuiLYEntityOutliner::ImGuiUpdate_DrawComponentViewSubMenu()
+    void ImGuiO3deEntityOutliner::ImGuiUpdate_DrawComponentViewSubMenu()
     {
         AZ::SerializeContext *serializeContext = nullptr;
         AZ::ComponentApplicationBus::BroadcastResult(serializeContext, &AZ::ComponentApplicationRequests::GetSerializeContext);
@@ -232,7 +232,7 @@ namespace ImGui
         }
     }
 
-    void ImGuiLYEntityOutliner::ImGuiUpdate_DrawAutoEnableOptions()
+    void ImGuiO3deEntityOutliner::ImGuiUpdate_DrawAutoEnableOptions()
     {
         // Display/Remove Search Strings
         if (ImGui::CollapsingHeader("Component Auto Enable Search Strings", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed))
@@ -334,7 +334,7 @@ namespace ImGui
         }
     }
 
-    void ImGuiLYEntityOutliner::ImGuiUpdate()
+    void ImGuiO3deEntityOutliner::ImGuiUpdate()
     {
         if (m_enabled)
         {
@@ -423,7 +423,7 @@ namespace ImGui
         }
     }
 
-    bool ImGuiLYEntityOutliner::ImGuiUpdate_DrawEntityView(const AZ::EntityId &ent)
+    bool ImGuiO3deEntityOutliner::ImGuiUpdate_DrawEntityView(const AZ::EntityId &ent)
     {
         // Check to make sure the entity is still valid.. 
         AZ::Entity* entity = nullptr;
@@ -449,7 +449,7 @@ namespace ImGui
         return viewWindow;
     }
 
-    bool ImGuiLYEntityOutliner::ImGuiUpdate_DrawComponentView(const ImGui::ImGuiEntComponentId &entCom)
+    bool ImGuiO3deEntityOutliner::ImGuiUpdate_DrawComponentView(const ImGui::ImGuiEntComponentId &entCom)
     {
         // Check to make sure the entity is still valid.. 
         AZ::Entity* entity = nullptr;
@@ -491,7 +491,7 @@ namespace ImGui
         return viewWindow;
     }
 
-    void ImGuiLYEntityOutliner::ImGuiUpdate_RecursivelyDisplayEntityInfoAndDecendants(EntityInfoNodePtr node, bool justDrawChildren /*= false*/, bool drawInspectButton /*= true*/, 
+    void ImGuiO3deEntityOutliner::ImGuiUpdate_RecursivelyDisplayEntityInfoAndDecendants(EntityInfoNodePtr node, bool justDrawChildren /*= false*/, bool drawInspectButton /*= true*/, 
             bool drawTargetButton /*= true*/, bool drawDebugButton /*= true*/, bool sameLine /*= true*/, bool drawComponents /*= false*/)
     {
         if (node != nullptr)
@@ -549,7 +549,7 @@ namespace ImGui
         }
     }
 
-    void ImGuiLYEntityOutliner::ImGuiUpdate_RecursivelyDisplayEntityInfoAndDecendants_DrawDisplayOptions(EntityInfoNodePtr node, bool drawInspectButton, bool drawTargetButton, bool drawDebugButton, bool sameLine, bool drawComponents)
+    void ImGuiO3deEntityOutliner::ImGuiUpdate_RecursivelyDisplayEntityInfoAndDecendants_DrawDisplayOptions(EntityInfoNodePtr node, bool drawInspectButton, bool drawTargetButton, bool drawDebugButton, bool sameLine, bool drawComponents)
     {
         if (node != nullptr)
         {
@@ -851,7 +851,7 @@ namespace ImGui
         }
     }
 
-    void ImGuiLYEntityOutliner::ImGuiUpdate_DrawComponent(void *instance, const AZ::SerializeContext::ClassData *classData, const AZ::SerializeContext::ClassElement *classElement)
+    void ImGuiO3deEntityOutliner::ImGuiUpdate_DrawComponent(void *instance, const AZ::SerializeContext::ClassData *classData, const AZ::SerializeContext::ClassElement *classElement)
     {
         const char *typeName = classData->m_name;
         AZStd::string value;
@@ -923,7 +923,7 @@ namespace ImGui
         }
     }
 
-    void ImGuiLYEntityOutliner::RefreshEntityHierarchy()
+    void ImGuiO3deEntityOutliner::RefreshEntityHierarchy()
     {
         // Retrieve Id map from game entity context (editor->runtime).
         AzFramework::EntityContextId gameContextId = AzFramework::EntityContextId::CreateNull();
@@ -1000,7 +1000,7 @@ namespace ImGui
         }
     }
 
-    int ImGuiLYEntityOutliner::RefreshEntityHierarchy_FillCacheAndSort(EntityInfoNodePtr entityInfo)
+    int ImGuiO3deEntityOutliner::RefreshEntityHierarchy_FillCacheAndSort(EntityInfoNodePtr entityInfo)
     {
         int descendantCount = 0;
         for (int i = 0; i < entityInfo->m_children.size(); i++)
@@ -1051,7 +1051,7 @@ namespace ImGui
         return entityInfo->m_descendantCount = descendantCount;
     }
 
-    ImGuiLYEntityOutliner::EntityInfoNodePtr ImGuiLYEntityOutliner::FindEntityInfoByEntityId(const AZ::EntityId &entityId, EntityInfoNodePtr searchNode)
+    ImGuiO3deEntityOutliner::EntityInfoNodePtr ImGuiO3deEntityOutliner::FindEntityInfoByEntityId(const AZ::EntityId &entityId, EntityInfoNodePtr searchNode)
     {
         if (searchNode != nullptr)
         {
@@ -1078,7 +1078,7 @@ namespace ImGui
         return nullptr;
     }
 
-    void ImGuiLYEntityOutliner::DeleteEntityInfoAndDecendants(EntityInfoNodePtr entityInfo)
+    void ImGuiO3deEntityOutliner::DeleteEntityInfoAndDecendants(EntityInfoNodePtr entityInfo)
     {
         if (entityInfo != nullptr)
         {
@@ -1096,27 +1096,27 @@ namespace ImGui
         }
     }
 
-    void ImGuiLYEntityOutliner::RequestEntityView(AZ::EntityId entity)
+    void ImGuiO3deEntityOutliner::RequestEntityView(AZ::EntityId entity)
     {
         m_entitiesToView.insert(entity);
     }
     
-    void ImGuiLYEntityOutliner::RemoveEntityView(AZ::EntityId entity)
+    void ImGuiO3deEntityOutliner::RemoveEntityView(AZ::EntityId entity)
     {
         m_entitiesToView.erase(entity);
     }
 
-    void ImGuiLYEntityOutliner::RequestComponentView(ImGuiEntComponentId component)
+    void ImGuiO3deEntityOutliner::RequestComponentView(ImGuiEntComponentId component)
     {
         m_componentsToView.insert(component);
     }
 
-    void ImGuiLYEntityOutliner::RemoveComponentView(ImGuiEntComponentId component)
+    void ImGuiO3deEntityOutliner::RemoveComponentView(ImGuiEntComponentId component)
     {
         m_componentsToView.erase(component);
     }
 
-    void ImGuiLYEntityOutliner::RequestAllViewsForComponent(const AZ::TypeId& comType)
+    void ImGuiO3deEntityOutliner::RequestAllViewsForComponent(const AZ::TypeId& comType)
     {
         // To do this, we want to iterate through all component views connected to the bus
         ImGui::ImGuiUpdateDebugComponentListenerBus::EnumerateHandlers([&comType, this](ImGui::IImGuiUpdateDebugComponentListener* imGuiComListener)
@@ -1134,17 +1134,17 @@ namespace ImGui
         });
     }
     
-    void ImGuiLYEntityOutliner::EnableTargetViewMode(bool enabled)
+    void ImGuiO3deEntityOutliner::EnableTargetViewMode(bool enabled)
     {
         m_drawTargetViewButton = enabled;
     }
 
-    void ImGuiLYEntityOutliner::SetEnabled(bool enabled)
+    void ImGuiO3deEntityOutliner::SetEnabled(bool enabled)
     {
         m_enabled = enabled;
     }
 
-    void ImGuiLYEntityOutliner::AddAutoEnableSearchString(const AZStd::string& searchString)
+    void ImGuiO3deEntityOutliner::AddAutoEnableSearchString(const AZStd::string& searchString)
     {
         // Copy off the string and to_lower it
         AZStd::string stringToAdd = searchString;
@@ -1156,7 +1156,7 @@ namespace ImGui
         RefreshAutoEnableBasedOnSearchStrings();
     }
 
-    void ImGuiLYEntityOutliner::RefreshAutoEnableBasedOnSearchStrings()
+    void ImGuiO3deEntityOutliner::RefreshAutoEnableBasedOnSearchStrings()
     {
         AZ::SerializeContext *serializeContext = nullptr;
         AZ::ComponentApplicationBus::BroadcastResult(serializeContext, &AZ::ComponentApplicationRequests::GetSerializeContext);
@@ -1188,12 +1188,12 @@ namespace ImGui
         }
     }
 
-    bool ImGuiLYEntityOutliner::ComponentHasDebug(const AZ::TypeId& comType)
+    bool ImGuiO3deEntityOutliner::ComponentHasDebug(const AZ::TypeId& comType)
     {
         return m_componentDebugInfoMap.find(comType) != m_componentDebugInfoMap.end();
     }
 
-    void ImGuiLYEntityOutliner::EnableComponentDebug(const AZ::TypeId& comType, int priority /*= 1*/, bool enableMenuBar /*= false*/)
+    void ImGuiO3deEntityOutliner::EnableComponentDebug(const AZ::TypeId& comType, int priority /*= 1*/, bool enableMenuBar /*= false*/)
     {
         // if not found, add to vector and sort on priorities!
         if (!ComponentHasDebug(comType))

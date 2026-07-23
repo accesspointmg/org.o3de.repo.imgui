@@ -11,7 +11,7 @@
 #ifdef IMGUI_ENABLED
 #include "ImGuiManager.h"
 #include "ImGuiBus.h"
-#include "LYImGuiUtils/HistogramContainer.h"
+#include "O3deImGuiUtils/HistogramContainer.h"
 #include <AzCore/Component/TickBus.h>
 
 namespace ImGui

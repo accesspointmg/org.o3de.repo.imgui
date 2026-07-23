@@ -15,9 +15,9 @@
 #include <AzCore/std/containers/unordered_map.h>
 
 #include <imgui/imgui.h>
-#include <LYImGuiUtils/HistogramContainer.h>
+#include <O3deImGuiUtils/HistogramContainer.h>
 
-namespace ImGui::LYImGuiUtils
+namespace ImGui::O3deImGuiUtils
 {
     //! Helper for a group containing several histograms.
     //! The group is shown using collapsible header.
@@ -36,7 +36,7 @@ namespace ImGui::LYImGuiUtils
 
         void SetHistogramBinCount(int count) { m_histogramBinCount = count; }
 
-        ImGui::LYImGuiUtils::HistogramContainer* FindContainerByName(const char* name);
+        ImGui::O3deImGuiUtils::HistogramContainer* FindContainerByName(const char* name);
 
         //! Needs to be public for l-value access for ImGui::MenuItem()
         bool m_show = true;
@@ -47,10 +47,10 @@ namespace ImGui::LYImGuiUtils
 
         using HistogramIndexByNames = AZStd::unordered_map<const char*, size_t>;
         HistogramIndexByNames m_histogramIndexByName; //< Look-up table for the histogram index by name.
-        AZStd::vector<ImGui::LYImGuiUtils::HistogramContainer> m_histograms; //< Owns the histogram containers.
+        AZStd::vector<ImGui::O3deImGuiUtils::HistogramContainer> m_histograms; //< Owns the histogram containers.
 
         static constexpr float s_histogramHeight = 85.0f;
     };
-} // namespace ImGui::LYImGuiUtils
+} // namespace ImGui::O3deImGuiUtils
 
 #endif // IMGUI_ENABLED

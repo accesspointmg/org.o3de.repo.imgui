@@ -6,7 +6,7 @@
  *
  */
 
-#include "ImGuiLYAssetExplorer.h"
+#include "ImGuiO3deAssetExplorer.h"
 
 #ifdef IMGUI_ENABLED
 #include <AzCore/Component/TransformBus.h>
@@ -29,7 +29,7 @@ namespace ImGui
     static const ImVec4 s_lodColor_4 = ImColor(1.0f, 0.0f, 0.0f);
     static const ImVec4 s_lodColor_5 = ImColor(1.0f, 0.0f, 1.0f);
 
-    ImGuiLYAssetExplorer::ImGuiLYAssetExplorer()
+    ImGuiO3deAssetExplorer::ImGuiO3deAssetExplorer()
         : m_enabled(false)
         , m_meshDebugEnabled(false)
         , m_selectionFilter(false)
@@ -57,23 +57,23 @@ namespace ImGui
     {
     }
 
-    ImGuiLYAssetExplorer::~ImGuiLYAssetExplorer()
+    ImGuiO3deAssetExplorer::~ImGuiO3deAssetExplorer()
     {
     }
 
-    void ImGuiLYAssetExplorer::Initialize()
+    void ImGuiO3deAssetExplorer::Initialize()
     {
         // Connect to EBUSes
         ImGuiAssetExplorerRequestBus::Handler::BusConnect();
     }
 
-    void ImGuiLYAssetExplorer::Shutdown()
+    void ImGuiO3deAssetExplorer::Shutdown()
     {
         // Disconnect EBUSes
         ImGuiAssetExplorerRequestBus::Handler::BusDisconnect();
     }
 
-    void ImGuiLYAssetExplorer::ImGuiUpdate()
+    void ImGuiO3deAssetExplorer::ImGuiUpdate()
     {
         // Manage main window visibility
         if (m_enabled)
@@ -100,7 +100,7 @@ namespace ImGui
         }
     }
 
-    void ImGuiLYAssetExplorer::ImGuiUpdate_DrawViewOptions()
+    void ImGuiO3deAssetExplorer::ImGuiUpdate_DrawViewOptions()
     {
         // In-World Drawing Options ( Sphere, AABB, Debug Mesh, etc )
         ImGui::TextColored(ImGui::Colors::s_NiceLabelColor, "In-World Drawing");
@@ -124,7 +124,7 @@ namespace ImGui
         ImGui::ColorEdit4("Label - Text Color", reinterpret_cast<float*>(&m_inWorld_label_textColor.Value));
     }
 
-    void ImGuiLYAssetExplorer::MeshInstanceList_CheckMeshFilter()
+    void ImGuiO3deAssetExplorer::MeshInstanceList_CheckMeshFilter()
     {
         // Iterate through the Mesh Instance list, mark a boolean flag if the mesh name passes the Mesh Name Filter.
         for (MeshInstanceDisplayList& meshInstanceList : m_meshInstanceDisplayList)
@@ -133,7 +133,7 @@ namespace ImGui
         }
     }
 
-    void ImGuiLYAssetExplorer::MeshInstanceList_CheckEntityFilter()
+    void ImGuiO3deAssetExplorer::MeshInstanceList_CheckEntityFilter()
     {
         // Iterate through All Meshes..
         for (MeshInstanceDisplayList& meshInstanceList : m_meshInstanceDisplayList)
@@ -152,7 +152,7 @@ namespace ImGui
         }
     }
 
-    void ImGuiLYAssetExplorer::ImGuiUpdate_DrawMenu()
+    void ImGuiO3deAssetExplorer::ImGuiUpdate_DrawMenu()
     {
         // Primary on / off Switch
         ImGui::Checkbox("Mesh Debug Enabled", &m_meshDebugEnabled);
@@ -512,7 +512,7 @@ namespace ImGui
     }
 
     // Mesh Mouse Over Helper function
-    void ImGuiLYAssetExplorer::ImGuiUpdate_DrawMeshMouseOver(MeshInstanceDisplayList& meshDisplayList)
+    void ImGuiO3deAssetExplorer::ImGuiUpdate_DrawMeshMouseOver(MeshInstanceDisplayList& meshDisplayList)
     {
         if (!m_enabledMouseOvers)
         {
@@ -539,7 +539,7 @@ namespace ImGui
     }
 
     // Entity Instance Helper Function
-    void ImGuiLYAssetExplorer::ImGuiUpdate_DrawEntityInstanceMouseOver(MeshInstanceDisplayList& meshDisplayList, AZ::EntityId& entityInstance, AZStd::string& entityName, MeshInstanceOptions& instanceOptions)
+    void ImGuiO3deAssetExplorer::ImGuiUpdate_DrawEntityInstanceMouseOver(MeshInstanceDisplayList& meshDisplayList, AZ::EntityId& entityInstance, AZStd::string& entityName, MeshInstanceOptions& instanceOptions)
     {
         if (!m_enabledMouseOvers)
         {
@@ -576,7 +576,7 @@ namespace ImGui
         instanceOptions.m_mousedOverForDraw |= ImGui::IsItemHovered();
     }
 
-    MeshInstanceDisplayList& ImGuiLYAssetExplorer::FindOrCreateMeshInstanceList(const char* meshName)
+    MeshInstanceDisplayList& ImGuiO3deAssetExplorer::FindOrCreateMeshInstanceList(const char* meshName)
     {
         // Walk the list and see if an entry for this mesh exists already. If we find one, return it!
         for (MeshInstanceDisplayList& meshInstanceList : m_meshInstanceDisplayList)

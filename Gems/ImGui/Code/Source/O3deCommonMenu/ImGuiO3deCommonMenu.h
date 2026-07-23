@@ -12,9 +12,9 @@
 #ifdef IMGUI_ENABLED
 #include <AzCore/Component/TickBus.h>
 #include "ImGuiBus.h"
-#include "ImGuiLYAssetExplorer.h"
-#include "ImGuiLYCameraMonitor.h"
-#include "ImGuiLYEntityOutliner.h"
+#include "ImGuiO3deAssetExplorer.h"
+#include "ImGuiO3deCameraMonitor.h"
+#include "ImGuiO3deEntityOutliner.h"
 #include "ImGuiInputMonitor.h"
 
 namespace ImGui
@@ -26,13 +26,13 @@ namespace ImGui
         Hidden
     };
 
-    class ImGuiLYCommonMenu
+    class ImGuiO3deCommonMenu
         : public ImGuiUpdateListenerBus::Handler
         , public AZ::TickBus::Handler
     {
     public:
-        ImGuiLYCommonMenu();
-        ~ImGuiLYCommonMenu();
+        ImGuiO3deCommonMenu();
+        ~ImGuiO3deCommonMenu();
 
         void Initialize();
         void Shutdown();
@@ -55,12 +55,12 @@ namespace ImGui
         DisplayState m_telemetryCapturePreCaptureState;
         bool m_controllerLegendWindowVisible;
 
-        ImGuiLYAssetExplorer m_assetExplorer;
-        ImGuiLYCameraMonitor m_cameraMonitor;
-        ImGuiLYEntityOutliner m_entityOutliner;
+        ImGuiO3deAssetExplorer m_assetExplorer;
+        ImGuiO3deCameraMonitor m_cameraMonitor;
+        ImGuiO3deEntityOutliner m_entityOutliner;
         ImGuiInputMonitor m_inputMonitor;
         bool m_showDeltaTimeGraphs = false;
-        ImGui::LYImGuiUtils::HistogramContainer m_deltaTimeHistogram;
+        ImGui::O3deImGuiUtils::HistogramContainer m_deltaTimeHistogram;
         ImGuiDropdownState m_dropdownState = ImGuiDropdownState::Hidden; //!< Keeps the state of the ImGui main menu dropdowns.
         //! Mark the dropdown for being hidden - this is used to prevent broadcasting that the dropdowns have been hidden
         //! in the case that the ImGui dropdown context has switched options.

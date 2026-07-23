@@ -11,7 +11,7 @@
 #ifdef IMGUI_ENABLED
 #include "ImGuiManager.h"
 #include "ImGuiBus.h"
-#include "LYImGuiUtils/HistogramContainer.h"
+#include "O3deImGuiUtils/HistogramContainer.h"
 #include <AzCore/Component/TickBus.h>
 
 namespace ImGui
@@ -21,9 +21,9 @@ namespace ImGui
     {
         AZ::EntityId m_camId;
         AZStd::string m_camName; // cache the name, especially useful if a camera is deleted after use
-        ImGui::LYImGuiUtils::HistogramContainer m_fovHisto;
-        ImGui::LYImGuiUtils::HistogramContainer m_facingVectorDeltaHisto;
-        ImGui::LYImGuiUtils::HistogramContainer m_positionDeltaHisto;
+        ImGui::O3deImGuiUtils::HistogramContainer m_fovHisto;
+        ImGui::O3deImGuiUtils::HistogramContainer m_facingVectorDeltaHisto;
+        ImGui::O3deImGuiUtils::HistogramContainer m_positionDeltaHisto;
 
         AZ::Vector3 m_lastWorldPos;
         AZ::Vector3 m_lastFacingVector;
@@ -32,13 +32,13 @@ namespace ImGui
         int m_activeFrames;
     };
 
-    class ImGuiLYCameraMonitor
+    class ImGuiO3deCameraMonitor
         : public AZ::TickBus::Handler
         , public ImGuiCameraMonitorRequestBus::Handler
     {
     public:
-        ImGuiLYCameraMonitor();
-        virtual ~ImGuiLYCameraMonitor() = default;
+        ImGuiO3deCameraMonitor();
+        virtual ~ImGuiO3deCameraMonitor() = default;
 
         // Called from owner
         void Initialize();
@@ -76,9 +76,9 @@ namespace ImGui
 
         // Additionally, keep 1 history of the active camera ( global = one histogram of data, even between camera switches )
         CameraInfo m_globalActiveCamInfo;
-        ImGui::LYImGuiUtils::HistogramContainer m_dofMinZHisto;
-        ImGui::LYImGuiUtils::HistogramContainer m_dofMinZBlendMultHisto;
-        ImGui::LYImGuiUtils::HistogramContainer m_dofMinZScaleHisto;
+        ImGui::O3deImGuiUtils::HistogramContainer m_dofMinZHisto;
+        ImGui::O3deImGuiUtils::HistogramContainer m_dofMinZBlendMultHisto;
+        ImGui::O3deImGuiUtils::HistogramContainer m_dofMinZScaleHisto;
 
         // Helper functions for the ImGui Update
         void ImGuiUpdate_DrawMenu();

@@ -15,7 +15,7 @@
 
 namespace ImGui
 {
-    namespace LYImGuiUtils
+    namespace O3deImGuiUtils
     {
         void Draw2DExpCurve(const char* name, const char* id, const ImVec2& size, const float exp, const float val = -1.0f);
         void DrawLYCVarCheckbox(const char* cVarName, const char* title, ICVar* cVar);
@@ -28,7 +28,7 @@ namespace ImGui
     if (gEnv && gEnv->pConsole)                                                         \
     {                                                                                   \
         static ICVar* staticCVAR = gEnv->pConsole->GetCVar(cVarName);                   \
-        ImGui::LYImGuiUtils::DrawLYCVarCheckbox(cVarName, cVarTitle, staticCVAR);       \
+        ImGui::O3deImGuiUtils::DrawLYCVarCheckbox(cVarName, cVarTitle, staticCVAR);       \
     }                                                                                   \
 }
 #endif // #ifdef IMGUI_ENABLED

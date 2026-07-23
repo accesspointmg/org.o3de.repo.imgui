@@ -6,7 +6,7 @@
  *
  */
 
-#include "ImGuiLYCommonMenu.h"
+#include "ImGuiO3deCommonMenu.h"
 
 #ifdef IMGUI_ENABLED
 #include <AzCore/std/string/conversions.h>
@@ -20,12 +20,12 @@
 #include <imgui/imgui_internal.h>
 #include <ILevelSystem.h>
 #include "ImGuiColorDefines.h"
-#include "LYImGuiUtils/ImGuiDrawHelpers.h"
+#include "O3deImGuiUtils/ImGuiDrawHelpers.h"
 
 // individual menus
-#include "ImGuiLYAssetExplorer.h"
-#include "ImGuiLYCameraMonitor.h"
-#include "ImGuiLYEntityOutliner.h"
+#include "ImGuiO3deAssetExplorer.h"
+#include "ImGuiO3deCameraMonitor.h"
+#include "ImGuiO3deEntityOutliner.h"
 
 namespace ImGui
 {
@@ -34,17 +34,17 @@ namespace ImGui
     static int s_renderAspectRatios[4][2] = { {16,9}, {16,10}, {43,18}, {4,3} };
     static const char* s_toggleTelemetryConsoleCmd = "radtm_ToggleEnabled 1";
 
-    ImGuiLYCommonMenu::ImGuiLYCommonMenu()
+    ImGuiO3deCommonMenu::ImGuiO3deCommonMenu()
         : m_telemetryCaptureTime(8.0f)
         , m_telemetryCaptureTimeRemaining(-1.0f)
         , m_controllerLegendWindowVisible(false)
     {
     }
-    ImGuiLYCommonMenu::~ImGuiLYCommonMenu() 
+    ImGuiO3deCommonMenu::~ImGuiO3deCommonMenu() 
     {
     }
 
-    void ImGuiLYCommonMenu::Initialize()
+    void ImGuiO3deCommonMenu::Initialize()
     {
         // Connect EBusses
         ImGuiUpdateListenerBus::Handler::BusConnect();
@@ -55,11 +55,11 @@ namespace ImGui
         m_entityOutliner.Initialize();
         m_inputMonitor.Initialize();
 
-        m_deltaTimeHistogram.Init("onTick Delta Time (Milliseconds)", 250, LYImGuiUtils::HistogramContainer::ViewType::Histogram, true, 0.0f, 60.0f);
+        m_deltaTimeHistogram.Init("onTick Delta Time (Milliseconds)", 250, O3deImGuiUtils::HistogramContainer::ViewType::Histogram, true, 0.0f, 60.0f);
         AZ::TickBus::Handler::BusConnect();
     }
 
-    void ImGuiLYCommonMenu::Shutdown()
+    void ImGuiO3deCommonMenu::Shutdown()
     {
         // Disconnect EBusses
         AZ::TickBus::Handler::BusDisconnect();
@@ -106,7 +106,7 @@ namespace ImGui
         return false;
     };
 
-    void ImGuiLYCommonMenu::OnImGuiUpdate()
+    void ImGuiO3deCommonMenu::OnImGuiUpdate()
     {
         float dpiScalingFactor = 1.0f;
         ImGuiManagerBus::BroadcastResult(dpiScalingFactor, &ImGuiManagerBus::Events::GetDpiScalingFactor);
@@ -219,7 +219,7 @@ namespace ImGui
                     ImGui::TextColored(ImGui::Colors::s_NiceLabelColor, discreteInputEnabled ? "True" : "False");
                     ImGui::TextColored(ImGui::Colors::s_PlainLabelColor, " * Discrete Input mode ON: All input goes to both ImGui and the Game, all the time.");
                     ImGui::TextColored(ImGui::Colors::s_PlainLabelColor, " * Discrete Input mode OFF: ImGui has three states 1)ImGui On, Input->ImGui, 2)ImGui On, Input->Game 3) ImGui Off");
-                    ImGui::TextColored(ImGui::Colors::s_PlainLabelColor, " * Hot Tip: use the LY Common -> ImGui Menu to toggle on and off discrete input mode, or the CVAR: 'imgui_DiscreteInputMode'");
+                    ImGui::TextColored(ImGui::Colors::s_PlainLabelColor, " * Hot Tip: use the O3DE Common -> ImGui Menu to toggle on and off discrete input mode, or the CVAR: 'imgui_DiscreteInputMode'");
                     ImGui::Separator();
                     ImGui::Text("Controller Legend ");
                     ImGui::SameLine();
@@ -284,7 +284,7 @@ namespace ImGui
                     m_inputMonitor.ToggleEnabled();
                 }
 
-                // LY Entity Outliner
+                // O3DE Entity Outliner
                 if (ImGui::SmallButton("Launch"))
                 {
                     m_entityOutliner.ToggleEnabled();
@@ -305,7 +305,7 @@ namespace ImGui
                     {
                         int displayInfoVal = rDisplayInfoCVar->GetIVal();
                         int dragIntVal = displayInfoVal;
-                        ImGui::Text("r_DisplayInfo: %d ( View Runtime LY Debug Stats)", displayInfoVal);
+                        ImGui::Text("r_DisplayInfo: %d ( View Runtime O3DE Debug Stats)", displayInfoVal);
                         ImGui::SliderInt("##DisplayInfo", &dragIntVal, 0, 5);
 
                         if (dragIntVal != displayInfoVal)
@@ -676,7 +676,7 @@ namespace ImGui
                     m_showImGuiDemo = true;
                 }
 
-                // End LY Common Tools menu
+                // End O3DE Common Tools menu
                 ImGui::EndMenu();
             }
 
@@ -739,7 +739,7 @@ namespace ImGui
         }
     }
 
-    void ImGuiLYCommonMenu::OnImGuiUpdate_DrawControllerLegend()
+    void ImGuiO3deCommonMenu::OnImGuiUpdate_DrawControllerLegend()
     {
         bool contextualControllerEnabled = false;
         ImGuiManagerBus::BroadcastResult(contextualControllerEnabled, &IImGuiManager::IsControllerSupportModeEnabled, ImGuiControllerModeFlags::Contextual);
@@ -856,7 +856,7 @@ namespace ImGui
         ImGui::Columns(1);
     }
 
-    void ImGuiLYCommonMenu::StartTelemetryCapture()
+    void ImGuiO3deCommonMenu::StartTelemetryCapture()
     {
         // Start the Capture
         gEnv->pConsole->ExecuteString(s_toggleTelemetryConsoleCmd);
@@ -871,7 +871,7 @@ namespace ImGui
         ImGuiManagerBus::Broadcast(&IImGuiManager::SetDisplayState, DisplayState::Hidden);
     }
 
-    void ImGuiLYCommonMenu::StopTelemetryCapture()
+    void ImGuiO3deCommonMenu::StopTelemetryCapture()
     {
         // Stop the Capture
         gEnv->pConsole->ExecuteString(s_toggleTelemetryConsoleCmd);
@@ -885,7 +885,7 @@ namespace ImGui
     }
 
     // OnTick just used for telemetry captures.
-    void ImGuiLYCommonMenu::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
+    void ImGuiO3deCommonMenu::OnTick(float deltaTime, [[maybe_unused]] AZ::ScriptTimePoint time)
     {
         m_deltaTimeHistogram.PushValue(deltaTime*1000.0f); // convert to milliseconds
 

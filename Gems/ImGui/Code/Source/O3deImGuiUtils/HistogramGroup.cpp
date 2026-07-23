@@ -7,9 +7,9 @@
  */
 
 #ifdef IMGUI_ENABLED
-#include "LYImGuiUtils/HistogramGroup.h"
+#include "O3deImGuiUtils/HistogramGroup.h"
 
-namespace ImGui::LYImGuiUtils
+namespace ImGui::O3deImGuiUtils
 {
     HistogramGroup::HistogramGroup(const char* name, int histogramBinCount)
         : m_name(name)
@@ -22,21 +22,21 @@ namespace ImGui::LYImGuiUtils
         auto iterator = m_histogramIndexByName.find(valueName);
         if (iterator != m_histogramIndexByName.end())
         {
-            ImGui::LYImGuiUtils::HistogramContainer& histogramContiner = m_histograms[iterator->second];
+            ImGui::O3deImGuiUtils::HistogramContainer& histogramContiner = m_histograms[iterator->second];
             histogramContiner.PushValue(value);
             histogramContiner.SetBarLineColor(ImColor(color.GetR(), color.GetG(), color.GetB(), color.GetA()));
         }
         else
         {
-            ImGui::LYImGuiUtils::HistogramContainer newHistogram;
+            ImGui::O3deImGuiUtils::HistogramContainer newHistogram;
             newHistogram.Init(/*histogramName=*/valueName,
                 /*containerCount=*/m_histogramBinCount,
-                /*viewType=*/ImGui::LYImGuiUtils::HistogramContainer::ViewType::Histogram,
+                /*viewType=*/ImGui::O3deImGuiUtils::HistogramContainer::ViewType::Histogram,
                 /*displayOverlays=*/true,
                 /*min=*/0.0f,
                 /*max=*/0.0f);
 
-            newHistogram.SetMoveDirection(ImGui::LYImGuiUtils::HistogramContainer::PushRightMoveLeft);
+            newHistogram.SetMoveDirection(ImGui::O3deImGuiUtils::HistogramContainer::PushRightMoveLeft);
             newHistogram.PushValue(value);
 
             m_histogramIndexByName[valueName] = m_histograms.size();
@@ -78,7 +78,7 @@ namespace ImGui::LYImGuiUtils
         }
     }
 
-    ImGui::LYImGuiUtils::HistogramContainer* HistogramGroup::FindContainerByName(const char* name)
+    ImGui::O3deImGuiUtils::HistogramContainer* HistogramGroup::FindContainerByName(const char* name)
     {
         const auto iterator = m_histogramIndexByName.find(name);
         if (iterator != m_histogramIndexByName.end())
@@ -88,6 +88,6 @@ namespace ImGui::LYImGuiUtils
 
         return nullptr;
     }
-} // namespace ImGui::LYImGuiUtils
+} // namespace ImGui::O3deImGuiUtils
 
 #endif // IMGUI_ENABLED

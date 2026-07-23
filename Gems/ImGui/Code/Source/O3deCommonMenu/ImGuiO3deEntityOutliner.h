@@ -16,12 +16,12 @@
 
 namespace ImGui
 {
-    class ImGuiLYEntityOutliner
+    class ImGuiO3deEntityOutliner
         : public ImGuiEntityOutlinerRequestBus::Handler
     {
     public:
-        ImGuiLYEntityOutliner();
-        ~ImGuiLYEntityOutliner();
+        ImGuiO3deEntityOutliner();
+        ~ImGuiO3deEntityOutliner();
 
         // Called from owner
         void Initialize();

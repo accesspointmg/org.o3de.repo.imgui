@@ -6,7 +6,7 @@
  *
  */
 
-#include "LYImGuiUtils/HistogramContainer.h"
+#include "O3deImGuiUtils/HistogramContainer.h"
 
 #ifdef IMGUI_ENABLED
 
@@ -14,7 +14,7 @@
 
 namespace ImGui
 {
-    namespace LYImGuiUtils
+    namespace O3deImGuiUtils
     {
         void HistogramContainer::Init(const char* histogramName, int maxValueCountSize, ViewType viewType, bool displayOverlays, float minScale, float maxScale,
             ScaleMode scaleMode, bool startCollapsed/* = false*/, bool drawMostRecentValue/* = true*/)
@@ -155,11 +155,11 @@ namespace ImGui
                         break;
 
                     case ViewType::Histogram:
-                        ImGui::PlotHistogram(AZStd::string::format("##%s_histo", m_histogramName.c_str()).c_str(), ImGui::LYImGuiUtils::s_histogramContainerGetter, this, GetSize(), 0, m_histogramName.c_str(), m_minScale, m_maxScale, ImVec2(histogramWidth - 10, imGuiHistoWidgetHeight));
+                        ImGui::PlotHistogram(AZStd::string::format("##%s_histo", m_histogramName.c_str()).c_str(), ImGui::O3deImGuiUtils::s_histogramContainerGetter, this, GetSize(), 0, m_histogramName.c_str(), m_minScale, m_maxScale, ImVec2(histogramWidth - 10, imGuiHistoWidgetHeight));
                         break;
 
                     case ViewType::Lines:
-                        ImGui::PlotLines(AZStd::string::format("##%s_lines", m_histogramName.c_str()).c_str(), ImGui::LYImGuiUtils::s_histogramContainerGetter, this, GetSize(), 0, m_histogramName.c_str(), m_minScale, m_maxScale, ImVec2(histogramWidth - 10, imGuiHistoWidgetHeight));
+                        ImGui::PlotLines(AZStd::string::format("##%s_lines", m_histogramName.c_str()).c_str(), ImGui::O3deImGuiUtils::s_histogramContainerGetter, this, GetSize(), 0, m_histogramName.c_str(), m_minScale, m_maxScale, ImVec2(histogramWidth - 10, imGuiHistoWidgetHeight));
                         break;
                 }
 

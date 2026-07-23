@@ -7,12 +7,12 @@
  */
 
 #ifdef IMGUI_ENABLED
-#include "LYImGuiUtils/ImGuiDrawHelpers.h"
+#include "O3deImGuiUtils/ImGuiDrawHelpers.h"
 #include "ImGuiColorDefines.h"
 
 namespace ImGui
 {
-    namespace LYImGuiUtils
+    namespace O3deImGuiUtils
     {
         void Draw2DExpCurve([[maybe_unused]] const char* name, const char* id, const ImVec2& size, const float exp, const float val /*= -1.0f*/)
         {

@@ -38,13 +38,13 @@ namespace ImGui
         bool m_childrenPassFilter; // Does even one of this entities Children Pass their Entity Name Filters ( used to hide when there are zero relevant children )
     };
 
-    class ImGuiLYAssetExplorer
+    class ImGuiO3deAssetExplorer
         : public ImGuiAssetExplorerRequestBus::Handler
 
     {
     public:
-        ImGuiLYAssetExplorer();
-        ~ImGuiLYAssetExplorer();
+        ImGuiO3deAssetExplorer();
+        ~ImGuiO3deAssetExplorer();
 
         // Called from owner
         void Initialize();

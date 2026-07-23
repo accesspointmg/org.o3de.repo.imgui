@@ -15,7 +15,7 @@
 
 namespace ImGui
 {
-    namespace LYImGuiUtils
+    namespace O3deImGuiUtils
     {
         /**
         * A small class to help manage values for an ImGui Histogram (ImGui is not managing values itself).
@@ -111,7 +111,7 @@ namespace ImGui
         // Getter function lambda. Can be used directly with ImGui if the user would like to skip our cool Draw function and just use the class as a cache
         static auto s_histogramContainerGetter = [](void* histContainerPtr, int idx)
         {
-            ImGui::LYImGuiUtils::HistogramContainer* histContainer = static_cast<ImGui::LYImGuiUtils::HistogramContainer*>(histContainerPtr);
+            ImGui::O3deImGuiUtils::HistogramContainer* histContainer = static_cast<ImGui::O3deImGuiUtils::HistogramContainer*>(histContainerPtr);
             if (histContainer != nullptr)
             {
                 return histContainer->GetValue(idx);
